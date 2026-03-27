@@ -1,10 +1,12 @@
 const admin = require('firebase-admin');
 
-const serviceAccount = require('./stackburger-a3c81-firebase-adminsdk-fbsvc-107b7d1981.json');
+const serviceAccount = require('./stackburger-a3c81-firebase-adminsdk-fbsvc-454a341e0c.json');
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+  });
+}
 
 const db = admin.firestore();
 
