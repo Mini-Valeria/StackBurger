@@ -53,6 +53,7 @@ exports.updateOrderStatus = (req, res) => {
   db.query(query, [status, id], async (err, result) => {
 
     if (err) return res.status(500).send(err);
+    console.log("🔥 Updating Firestore order:", id, status);
 
     try {
 
@@ -66,6 +67,7 @@ exports.updateOrderStatus = (req, res) => {
       });
 
       res.json({ message: "Status updated successfully" });
+      console.log("🔥 Updating Firestore order:", id, status);
 
     } catch (error) {
       res.status(500).send(error);
