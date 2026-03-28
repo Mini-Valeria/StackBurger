@@ -8,7 +8,7 @@ if (!admin.apps.length) {
     serviceAccount = {
       projectId: process.env.FIREBASE_PROJECT_ID,
       clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n')
+      privateKey: process.env.FIREBASE_PRIVATE_KEY.split('\\n').join('\n')
     };
   } else {
     serviceAccount = require('./stackburger-a3c81-firebase-adminsdk-fbsvc-454a341e0c.json');
