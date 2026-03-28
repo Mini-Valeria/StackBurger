@@ -10,6 +10,7 @@ if (!admin.apps.length) {
       clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
       privateKey: process.env.FIREBASE_PRIVATE_KEY.split('\\n').join('\n')
     };
+    console.log("🔥 PRIVATE KEY START:", process.env.FIREBASE_PRIVATE_KEY?.slice(0, 30));
   } else {
     serviceAccount = require('./stackburger-a3c81-firebase-adminsdk-fbsvc-454a341e0c.json');
   }

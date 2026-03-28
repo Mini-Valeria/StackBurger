@@ -101,7 +101,6 @@ exports.deleteOrder = (req, res) => {
 
       try {
 
-        // 🔥 eliminar también en Firestore
         const snapshot = await firestore
           .collection("orders")
           .where("order_id", "==", parseInt(id))
