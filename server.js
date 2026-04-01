@@ -22,7 +22,7 @@ app.use("/api", ordersRoutes);
 app.use("/api", orderDetailsRoutes);
 app.use("/api", fullOrderRoutes);
 
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
   res.send("Restaurant API running");
 });
 

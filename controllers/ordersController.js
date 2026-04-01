@@ -48,8 +48,6 @@ exports.updateOrderStatus = (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
 
-  console.log("🔥 ID recibido:", id);
-
   const query = "UPDATE orders SET status_order = ? WHERE order_id = ?";
 
   db.query(query, [status, id], async (err, result) => {
@@ -58,17 +56,12 @@ exports.updateOrderStatus = (req, res) => {
 
     try {
 
-      console.log("🔥 Entrando a Firestore...");
-
       const snapshot = await firestore
         .collection("orders")
         .where("order_id", "==", parseInt(id))
         .get();
 
-      console.log("🔥 Snapshot size:", snapshot.size);
-
       snapshot.forEach(doc => {
-        console.log("🔥 Updating doc:", doc.id);
         doc.ref.update({ status: status });
       });
 
