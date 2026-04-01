@@ -8,7 +8,7 @@ try {
     serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
   } else {
     console.log("🟢 Usando credenciales locales");
-    serviceAccount = require('./stackburger-a3c81-firebase-adminsdk-fbsvc-4a11a90fdc.json');
+    serviceAccount = require('./stackburger-a3c81-firebase-adminsdk-fbsvc-efdfefd50c.json');
   }
 
   admin.initializeApp({
