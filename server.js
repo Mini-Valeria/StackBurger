@@ -29,3 +29,10 @@ app.get("/api", (req, res) => {
 app.listen(3000, () => {
   console.log("Server running on port 3000");
 });
+
+firestore.collection("test").add({
+  mensaje: "hola desde backend",
+  fecha: new Date()
+})
+.then(() => console.log("🔥 FIRESTORE FUNCIONA"))
+.catch(err => console.error("💀 FIRESTORE FALLA:", err));

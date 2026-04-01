@@ -29,15 +29,30 @@ exports.createOrder = (req, res) => {
 
   const query = "INSERT INTO orders (customer_id, total, status_order) VALUES (?, ?, ?)";
 
-  db.query(query, [customer_id, total, status_order], (err, result) => {
+  db.query(query, [customer_id, total, status_order], async (err, result) => {
     if (err) {
       res.status(500).send(err);
-    } else {
-      res.json({
-        message: "Order created successfully",
-        orderId: result.insertId
-      });
     }
+
+    try {
+      // 🔥 GUARDAR EN FIRESTORE
+      await firestore.collection("orders").add({
+        order_id: result.insertId,
+        customer_id,
+        total,
+        status: status_order,
+        createdAt: new Date()
+      });
+
+      console.log("🔥 Guardado en Firestore");
+
+    } catch (error) {
+      console.error("🔥 ERROR FIRESTORE:", error);
+    }
+    res.json({
+      message: "Order created successfully",
+      orderId: result.insertId
+    });
   });
 };
 

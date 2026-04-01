@@ -1,25 +1,22 @@
 const admin = require('firebase-admin');
 
-if (!admin.apps.length) {
+let serviceAccount;
 
-  let serviceAccount;
-
-  if (process.env.FIREBASE_PRIVATE_KEY) {
-    serviceAccount = {
-      projectId: process.env.FIREBASE_PROJECT_ID,
-      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      privateKey: process.env.FIREBASE_PRIVATE_KEY.split('\\n').join('\n')
-    };
-    console.log("🔥 PRIVATE KEY START:", process.env.FIREBASE_PRIVATE_KEY?.slice(0, 30));
+try {
+  if (process.env.FIREBASE_SERVICE_ACCOUNT && process.env.FIREBASE_SERVICE_ACCOUNT !== "undefined") {
+    console.log("🔥 Usando credenciales de Render");
+    serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
   } else {
-    serviceAccount = require('./stackburger-a3c81-firebase-adminsdk-fbsvc-fbf53b6778.json');
+    console.log("🟢 Usando credenciales locales");
+    serviceAccount = require('./stackburger-a3c81-firebase-adminsdk-fbsvc-4a11a90fdc.json');
   }
 
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
   });
 
-  console.log("🔥 Firebase initialized correctly");
+} catch (error) {
+  console.error("🔥 ERROR FIREBASE CONFIG:", error);
 }
 
 const db = admin.firestore();
